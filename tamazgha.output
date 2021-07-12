@@ -1,0 +1,227 @@
+Terminals which are not used:
+
+   COND
+   STMNT
+   BEGEXP
+   FINEXP
+   BEGINBLOCK
+   FINBLOCK
+
+
+State 0 contains 1 reduce/reduce conflict.
+
+
+Grammar
+
+  Number, Line, Rule
+    1  21 prog -> whileloop
+    2  22 prog -> /* empty */
+    3  24 whileloop -> /* empty */
+    4  25 whileloop -> WHILE_LOOP cond stmnt
+    5  30 cond -> /* empty */
+    6  31 stmnt -> "write" '(' 'i' ')' ';' "..."
+    7  32 @1 -> /* empty */
+    8  32 stmnt -> 'i' '+' '+' ';' @1 stmnt
+
+
+Terminals, with rules where they appear
+
+$ (-1)
+'(' (40) 6
+')' (41) 6
+'+' (43) 8
+';' (59) 6 8
+'i' (105) 6 8
+error (256)
+WHILE_LOOP (257) 4
+COND (258)
+STMNT (259)
+BEGEXP (260)
+FINEXP (261)
+BEGINBLOCK (262)
+FINBLOCK (263)
+"write" (264) 6
+"..." (265) 6
+
+
+Nonterminals, with rules where they appear
+
+prog (17)
+    on left: 1 2
+whileloop (18)
+    on left: 3 4, on right: 1
+cond (19)
+    on left: 5, on right: 4
+stmnt (20)
+    on left: 6 8, on right: 4 8
+@1 (21)
+    on left: 7, on right: 8
+
+
+state 0
+
+    WHILE_LOOP	shift, and go to state 1
+
+    $   	reduce using rule 2 (prog)
+    $   	[reduce using rule 3 (whileloop)]
+    $default	reduce using rule 2 (prog)
+    prog	go to state 17
+    whileloop	go to state 2
+
+
+
+state 1
+
+    whileloop  ->  WHILE_LOOP . cond stmnt   (rule 4)
+
+    $default	reduce using rule 5 (cond)
+
+    cond	go to state 3
+
+
+
+state 2
+
+    prog  ->  whileloop .   (rule 1)
+
+    $default	reduce using rule 1 (prog)
+
+
+
+state 3
+
+    whileloop  ->  WHILE_LOOP cond . stmnt   (rule 4)
+
+    "write"	shift, and go to state 4
+    'i' 	shift, and go to state 5
+
+    stmnt	go to state 6
+
+
+
+state 4
+
+    stmnt  ->  "write" . '(' 'i' ')' ';' "..."   (rule 6)
+
+    '(' 	shift, and go to state 7
+
+
+
+state 5
+
+    stmnt  ->  'i' . '+' '+' ';' @1 stmnt   (rule 8)
+
+    '+' 	shift, and go to state 8
+
+
+
+state 6
+
+    whileloop  ->  WHILE_LOOP cond stmnt .   (rule 4)
+
+    $default	reduce using rule 4 (whileloop)
+
+
+
+state 7
+
+    stmnt  ->  "write" '(' . 'i' ')' ';' "..."   (rule 6)
+
+    'i' 	shift, and go to state 9
+
+
+
+state 8
+
+    stmnt  ->  'i' '+' . '+' ';' @1 stmnt   (rule 8)
+
+    '+' 	shift, and go to state 10
+
+
+
+state 9
+
+    stmnt  ->  "write" '(' 'i' . ')' ';' "..."   (rule 6)
+
+    ')' 	shift, and go to state 11
+
+
+
+state 10
+
+    stmnt  ->  'i' '+' '+' . ';' @1 stmnt   (rule 8)
+
+    ';' 	shift, and go to state 12
+
+
+
+state 11
+
+    stmnt  ->  "write" '(' 'i' ')' . ';' "..."   (rule 6)
+
+    ';' 	shift, and go to state 13
+
+
+
+state 12
+
+    stmnt  ->  'i' '+' '+' ';' . @1 stmnt   (rule 8)
+
+    $default	reduce using rule 7 (@1)
+
+    @1  	go to state 14
+
+
+
+state 13
+
+    stmnt  ->  "write" '(' 'i' ')' ';' . "..."   (rule 6)
+
+    "..."	shift, and go to state 15
+
+
+
+state 14
+
+    stmnt  ->  'i' '+' '+' ';' @1 . stmnt   (rule 8)
+
+    "write"	shift, and go to state 4
+    'i' 	shift, and go to state 5
+
+    stmnt	go to state 16
+
+
+
+state 15
+
+    stmnt  ->  "write" '(' 'i' ')' ';' "..." .   (rule 6)
+
+    $default	reduce using rule 6 (stmnt)
+
+
+
+state 16
+
+    stmnt  ->  'i' '+' '+' ';' @1 stmnt .   (rule 8)
+
+    $default	reduce using rule 8 (stmnt)
+
+
+
+state 17
+
+    $   	go to state 18
+
+
+
+state 18
+
+    $   	go to state 19
+
+
+
+state 19
+
+    $default	accept
+
+
